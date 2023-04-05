@@ -6,26 +6,11 @@ import Contacto from "./Contacto";
 const ListaContactos = () => {
   const [contactos, cambiarContactos] = useState([]);
 
-  // const obtenerTodosUsuarios = async () => {
-  //     try {
-  //        const query = await getDocs(collection(db, "usuarios"))
-  //        const allUsers = [];
-  //        query.forEach( doc => {
-  //         allUsers.push({id: doc.id, nombre: doc.data().nombre, correo: doc.data().correo})
-  //        })
-  //        cambiarContactos(allUsers);
-  //     } catch (error) {
-  //         console.error('Ocurrio un error', error)
-  //     }
-  // }
-
-  // obtenerTodosUsuarios();
-  
   const readAllContacts = async () => {
     // Reading parse objects is done by using Parse.Query
     const parseQuery = new Parse.Query("Contacto");
     try {
-        let todos = await parseQuery.find();
+        let todos = await parseQuery.findAll();
         // Be aware that empty or invalid queries return as an empty array
         // Set results to state variable
         cambiarContactos(todos);

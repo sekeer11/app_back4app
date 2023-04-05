@@ -5,9 +5,10 @@ import ListaContactos from './components/ListaContactos';
 // Import Parse minified version
 import Parse from 'parse/dist/parse.min.js';
 // Your Parse initialization configuration goes here
-const PARSE_APPLICATION_ID = process.env.REACT_APP_PARSE_APPLICATION_ID;
-const PARSE_HOST_URL = process.env.REACT_APP_PARSE_HOST_URL;
-const PARSE_JAVASCRIPT_KEY = process.env.REACT_APP_PARSE_JAVASCRIPT_KEY;
+const PARSE_APPLICATION_ID = import.meta.env.VITE_PARSE_APPLICATION_ID;
+const PARSE_HOST_URL = import.meta.env.VITE_PARSE_HOST_URL;
+const PARSE_JAVASCRIPT_KEY = import.meta.env.VITE_PARSE_JAVASCRIPT_KEY;
+
 Parse.initialize(PARSE_APPLICATION_ID, PARSE_JAVASCRIPT_KEY);
 Parse.serverURL = PARSE_HOST_URL;
 
