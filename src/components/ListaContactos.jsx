@@ -21,8 +21,42 @@ const ListaContactos = () => {
         return false;
       }
   };
+
+  const fetchUpdatesContacs = async () => {
+    const query = new Parse.Query('Contacto');
+    query.notEqualTo('isClosed', true);
+    const subscription = await query.subscribe();
+    subscription.on('create', async (object) => {
+      readAllContacts();
+    });
+    subscription.on('update', async (object) => {
+      readAllContacts();
+    });
+    subscription.on('delete', async (object) => {
+      readAllContacts();
+    });
+    
+  }
+
+  const closeListener = async () => {
+    const query = new Parse.Query('Contacto');
+    const subscription = await query.subscribe();
+    subscription.on('close', () => {
+      console.log('subscription closed');
+    });
+  }
+
   useEffect(() => {
+    // Llamar a la función para obtener datos iniciales de la lista de contactos
     readAllContacts();
+
+    // Agregar listener para actualizar la lista de contactos cuando se agrega un nuevo contacto
+    fetchUpdatesContacs();
+
+    return () => {
+      // Remover listener cuando se desmonta el componente
+      closeListener();
+    };    
   }, []);
 
   return (
